@@ -7,10 +7,10 @@
 
 # --- Next.js / Node ---
 node_modules/
-/.next/
-/out/
-/build
-/coverage
+.next/
+out/
+build/
+coverage/
 .pnp.*
 .yarn/*
 !.yarn/patches
@@ -26,27 +26,18 @@ yarn-error.log*
 next-env.d.ts
 
 # --- ASP.NET Core / EF Core ---
-# Ignore build artifacts
-[Bb]in/
-[Oo]bj/
-# Ignore User-specific files
+bin/
+obj/
 *.user
 *.userosscache
 *.sln.docstates
-# Ignore EF Core migrations bundles
 *.exe
-# Ignore the local secret store
 UserSecretsId
 
 # --- Docker & DB ---
-# Ignore the actual data stored in your Postgres container
 postgres_data/
 
 # --- Environment Secrets ---
-# VERY IMPORTANT: Never commit secrets!
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env*
 appsettings.Development.json
