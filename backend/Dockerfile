@@ -1,26 +1,25 @@
-# Use the .NET 8.0 SDK (Matches your likely project version)
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+# Update to 9.0
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# 1. Copy all .csproj files to their respective folders
-# This allows Docker to cache the 'restore' layer
+# 1. Copy all .csproj files
 COPY ["Api/Api.csproj", "Api/"]
 COPY ["Core/Core.csproj", "Core/"]
 COPY ["Data/Data.csproj", "Data/"]
 COPY ["Shared/Shared.csproj", "Shared/"]
 
-# 2. Restore dependencies
+# 2. Restore
 RUN dotnet restore "Api/Api.csproj"
 
-# 3. Copy the rest of the source code
+# 3. Copy source
 COPY . .
 
-# 4. Build and publish the API project
+# 4. Build
 WORKDIR "/src/Api"
 RUN dotnet publish "Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-# 5. Final stage: Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+# 5. Final stage: Update Runtime to 9.0
+FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
 COPY --from=build /app/publish .
 ENTRYPOINT ["dotnet", "Api.dll"]
