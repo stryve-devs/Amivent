@@ -1,0 +1,20 @@
+# --- IDEs and OS ---
+.idea/
+.vscode/
+.DS_Store
+.git/
+
+# --- Build Artifacts (Global) ---
+# This ignores these folders anywhere they appear in the project
+**/node_modules/
+**/bin/
+**/obj/
+**/.next/
+**/dist/
+**/out/
+
+# --- Databases & Secrets ---
+postgres_data/
+.env
+.env.*
+*.log

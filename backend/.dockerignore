@@ -1,0 +1,12 @@
+# Ignore local build outputs
+bin/
+obj/
+out/
+
+# Ignore local environment settings
+appsettings.Development.json
+UserSecretsId
+
+# Ignore Docker-related files
+Dockerfile
+.dockerignore
