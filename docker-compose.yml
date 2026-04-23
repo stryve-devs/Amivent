@@ -1,5 +1,5 @@
 services:
-  # 1. The Database (PostgreSQL)
+  # 1. Database (PostgreSQL)
   db:
     image: postgres:16-alpine
     restart: always
@@ -8,24 +8,28 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: amivent_db
     ports:
-      - "5433:5432" # Mac sees DB on 5433 to avoid local Postgres conflicts
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  # 2. The ASP.NET Backend
+  # 2. ASP.NET Backend (Hot Reload enabled)
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "5001:8080"
+      - "5000:8080"
     environment:
       - ConnectionStrings__DefaultConnection=Host=db;Database=amivent_db;Username=user;Password=password
       - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ./backend:/app
+    working_dir: /app
+    command: dotnet watch run
     depends_on:
       - db
 
-  # 3. The Next.js Frontend
+  # 3. Next.js Frontend (Hot Reload enabled)
   frontend:
     build:
       context: ./frontend
@@ -33,7 +37,14 @@ services:
       - "3001:3001"
     environment:
       - PORT=3001
-      - NEXT_PUBLIC_API_URL=http://localhost:5001 # UPDATED to match backend port
+      - NEXT_PUBLIC_API_URL=http://localhost:5000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    working_dir: /app
+    command: npm run dev
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:

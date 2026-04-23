@@ -5,25 +5,27 @@
 *.swp
 Thumbs.db
 
-# --- Next.js / Frontend ---
-**/node_modules/    <-- The ** covers any subfolder
-**/.next/
-**/out/
-**/build/
-.env*.local         <-- Keeps teammate secrets off GitHub
+# --- Frontend (Next.js / Node) ---
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/.env*.local
 
-# --- ASP.NET Core / Backend ---
+# --- Backend (Node or mixed backend) ---
+backend/node_modules/
+
+# --- ASP.NET Core / Backend (if applicable) ---
 **/bin/
 **/obj/
 *.user
 *.suo
 UserSecretsId
-# Ignore personal dev settings but keep main appsettings.json
 appsettings.Development.json
 
 # --- Docker & Databases ---
-postgres_data/      <-- Stops the actual database files from being committed
-.env                <-- Stops the root Docker secrets from being committed
+postgres_data/
+.env
 
 # --- Miscellaneous ---
 *.log
