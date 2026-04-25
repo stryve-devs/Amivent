@@ -26,7 +26,7 @@ ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 
 # Essential for the container to listen on the correct port
-ENV PORT 3001
+ENV PORT 3002
 ENV HOSTNAME "0.0.0.0"
 
 # Copy necessary files
@@ -38,4 +38,4 @@ COPY --from=builder /app/package.json ./package.json
 EXPOSE 3001
 
 # Using the -p flag here ensures it overrides any package.json defaults
-CMD ["npm", "start", "--", "-p", "3001"]
+CMD ["npm", "start", "--", "-p", "3002"]

@@ -34,10 +34,10 @@ services:
     build:
       context: ./frontend
     ports:
-      - "3001:3001"
+      - "3002:3002"
     environment:
       - PORT=3001
-      - NEXT_PUBLIC_API_URL=http://localhost:5000
+      - NEXT_PUBLIC_API_URL=http://localhost:5001
     volumes:
       - ./frontend:/app
       - /app/node_modules
