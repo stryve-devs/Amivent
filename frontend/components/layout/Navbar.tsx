@@ -72,16 +72,17 @@ export default function Navbar() {
                 {/* 3. Right Side: Personal Actions & Status */}
                 <div className="flex items-center gap-2 sm:gap-4 shrink-0 relative">
 
-                    {/* RBAC Create Button */}
+                    {/* RBAC Create Button - FIXED: Changed from button+alert to Link */}
                     {(userRole === "Admin" || userRole === "ClubPresident") && (
-                        <button
-                            onClick={() => alert("Logic: Trigger Create Event Modal")}
+                        <Link
+                            href="/create-event"
                             className="hidden sm:flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white shadow-md hover:bg-blue-700 active:scale-95 transition-all"
+                            title="Create Event"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
-                        </button>
+                        </Link>
                     )}
 
                     {/* Notifications */}
