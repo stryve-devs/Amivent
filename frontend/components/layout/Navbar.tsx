@@ -1,10 +1,13 @@
 "use client";
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation'; //
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Squeeze as Hamburger } from 'hamburger-react'
 
 export default function Navbar() {
+    const router = useRouter(); //
     const pathname = usePathname();
     const [isNotifyOpen, setIsNotifyOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -20,14 +23,29 @@ export default function Navbar() {
         { name: 'Organizations', href: '/orgs' },
     ];
 
+    const handleLogOut = (e: React.MouseEvent | React.FormEvent) => {
+        e.preventDefault();
+        // Redirects to your partner's animated login page
+        router.push('/login');
+    };
+
     return (
         <div className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 sm:px-6 font-sans">
-            <nav className="flex h-16 w-full max-w-7xl items-center justify-between rounded-full border border-zinc-200 bg-white/90 px-6 shadow-lg backdrop-blur-xl transition-all">
+            <nav className="flex h-16 w-full max-w-7xl items-center justify-between rounded-full border border-zinc-200 bg-white/90 px-6 shadow-lg backdrop-blur-xl transition-all relative">
 
-                {/* 1. Left Side: Brand & Direct Nav */}
+                {/* 1. Left Side: Brand, Hamburger & Direct Nav */}
                 <div className="flex items-center shrink-0">
+                    {/* Hamburger Button */}
+                    <div className="lg:hidden mr-2">
+                        <Hamburger
+                            toggled={isMobileMenuOpen}
+                            toggle={setIsMobileMenuOpen}
+                            size={20}
+                            color={isMobileMenuOpen ? "#4FDBC8" : "#171A1A"}
+                        />
+                    </div>
+
                     <Link href="/events" className="flex items-center gap-3 group">
-                        {/* Circle - Forced Teal */}
                         <div className="h-8 w-8 rounded-full bg-[#4FDBC8] shadow-sm shadow-[#4FDBC8]/40 group-hover:scale-110 transition-transform" />
                         <span className="text-xl font-bold tracking-tight text-[#518077] select-none">
                           Amivent
@@ -46,7 +64,6 @@ export default function Navbar() {
                                     }`}
                                 >
                                     {link.name}
-                                    {/* Teal Underline for Active State */}
                                     {active && (
                                         <div className="absolute -bottom-0.4 left-0 w-full h-[2px] bg-[#4FDBC8] rounded-full" />
                                     )}
@@ -74,7 +91,6 @@ export default function Navbar() {
 
                 {/* 3. Right Side: Personal Actions */}
                 <div className="flex items-center gap-3 sm:gap-5 shrink-0 relative">
-                    {/* Create Button - Black as per your design */}
                     {(userRole === "Admin" || userRole === "ClubPresident") && (
                         <Link
                             href="/create-event"
@@ -86,7 +102,6 @@ export default function Navbar() {
                         </Link>
                     )}
 
-                    {/* Notifications - Icon goes Teal on open */}
                     <button
                         onClick={() => { setIsNotifyOpen(!isNotifyOpen); setIsProfileOpen(false); }}
                         className={`p-1 transition-colors ${isNotifyOpen ? 'text-[#4FDBC8]' : 'text-[#171A1A] hover:text-[#4FDBC8]'}`}
@@ -101,7 +116,6 @@ export default function Navbar() {
                         </div>
                     </button>
 
-                    {/* User Profile Avatar */}
                     <div className="relative">
                         <button
                             onClick={() => { setIsProfileOpen(!isProfileOpen); setIsNotifyOpen(false); }}
@@ -112,7 +126,7 @@ export default function Navbar() {
 
                         {/* Dropdown Menu */}
                         {isProfileOpen && (
-                            <div className="absolute right-0 mt-6 w-56 rounded-3xl border border-zinc-100 bg-white py-3 shadow-2xl z-[60] animate-in fade-in zoom-in-95 duration-200">
+                            <div className="absolute right-0 mt-6 w-56 rounded-3xl border border-zinc-100 bg-white py-3 shadow-2xl z-[60] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                                 <div className="px-5 py-3 border-b border-zinc-50 mb-2">
                                     <p className="text-sm font-black text-[#171A1A]">John Doe</p>
                                     <p className="text-[10px] text-[#4FDBC8] uppercase tracking-widest font-bold mt-0.5">CS Student</p>
@@ -125,13 +139,34 @@ export default function Navbar() {
                                     href="/settings"
                                     className="block px-5 py-2 text-sm font-medium text-[#171A1A] hover:text-[#4FDBC8] hover:bg-[#F1F4F4]"
                                 >Settings</Link>
-                                <button className="w-full text-left px-5 py-3 text-sm text-[#FFB862] border-t border-zinc-50 mt-2 font-bold">
+
+                                {/* Logout Button with Correct Redirect and Hover Shape */}
+                                <button
+                                    onClick={handleLogOut}
+                                    className="w-full text-left px-5 py-3 text-sm text-[#FFB862] border-t border-zinc-50 mt-2 font-bold hover:bg-[#F1F4F4] transition-all rounded-b-3xl"
+                                >
                                     Logout
                                 </button>
                             </div>
                         )}
                     </div>
                 </div>
+
+                {/* 4. Mobile Menu Dropdown */}
+                {isMobileMenuOpen && (
+                    <div className="absolute top-20 left-0 w-full bg-white rounded-3xl border border-zinc-100 p-6 shadow-2xl lg:hidden flex flex-col gap-4 animate-in slide-in-from-top-5 duration-300">
+                        {navLinks.map((link) => (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className={`text-lg font-bold ${isActive(link.href) ? 'text-[#4FDBC8]' : 'text-[#727876]'}`}
+                            >
+                                {link.name}
+                            </Link>
+                        ))}
+                    </div>
+                )}
             </nav>
         </div>
     );
