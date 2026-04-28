@@ -1,5 +1,41 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap');
 
+
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+@layer base {
+  body {
+    @apply bg-[#f7f9fc] font-sans antialiased overflow-hidden;
+  }
+}
+
+@layer utilities {
+  /* ICON SUPPORT - Critical and corrected */
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    .fixed-leaf-shape {
+      /* Values: top-left, top-right, bottom-right, bottom-left */
+      /* This creates the exaggerated D-shape seen in the video */
+      border-radius: 120px 120px 20px 100px;
+    }
+  }
+
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+}
 :root {
   --background: #ffffff;
   --foreground: #171717;
