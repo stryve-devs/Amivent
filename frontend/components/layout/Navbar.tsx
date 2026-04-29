@@ -81,7 +81,7 @@ export default function Navbar() {
                         </div>
                         <input
                             type="text"
-                            placeholder="Search events..."
+                            placeholder="Search for anything!"
                             className="w-full rounded-full border-none bg-[#F1F4F4] py-2.5 pl-11 pr-12 text-sm outline-none transition-all focus:ring-2 focus:ring-[#4FDBC8]/30 text-[#171A1A]"
                         />
                     </div>

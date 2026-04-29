@@ -1,15 +1,15 @@
+// app/(dashboard)/layout.tsx
 import React from 'react';
 import Navbar from "@/components/layout/Navbar";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     return (
-        <div className="relative min-h-screen bg-[#F0F7FA]">
+        // Changed bg to your brand surface-light and ensured overflow-x is hidden
+// Inside (dashboard)/layout.tsx
+        <div className="relative min-h-screen bg-[#F1F4F4]">
             <Navbar />
-            {/* Increased padding to give the floating nav space */}
-            <main className="pt-28 px-4 sm:px-6 pb-12">
-                <div className="max-w-7xl mx-auto">
-                    {children}
-                </div>
+            <main className="pt-32 px-6 pb-20">
+                {children}
             </main>
         </div>
     );

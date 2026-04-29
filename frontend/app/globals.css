@@ -1,11 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined' !important;
+}
 
 @import "tailwindcss";
 @config "../tailwind.config.ts";
 @layer base {
   body {
-    @apply bg-[#f7f9fc] font-sans antialiased overflow-hidden;
+    /* REMOVED: overflow-hidden */
+    /* ADDED: min-h-screen to allow expansion */
+    @apply bg-white font-sans antialiased min-h-screen text-[#171A1A];
   }
 }
 
