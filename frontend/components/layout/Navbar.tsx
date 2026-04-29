@@ -30,10 +30,8 @@ export default function Navbar() {
     };
 
     return (
-        <div className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 sm:px-6 font-sans">
-            <nav className="flex h-16 w-full max-w-7xl items-center justify-between rounded-full border border-zinc-200 bg-white/90 px-6 shadow-lg backdrop-blur-xl transition-all relative">
-
-                {/* 1. Left Side: Brand, Hamburger & Direct Nav */}
+        <div className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 sm:px-6 font-sans transform-gpu translate-z-0 backface-hidden">
+            <nav className="flex h-16 w-full max-w-7xl items-center justify-between rounded-full border border-white/20 bg-white/5 px-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] backdrop-blur-[10px] transition-all relative">
                 <div className="flex items-center shrink-0">
                     {/* Hamburger Button */}
                     <div className="lg:hidden mr-2">
