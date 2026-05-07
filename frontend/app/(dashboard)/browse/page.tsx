@@ -167,7 +167,12 @@ export default function BrowsePage() {
 
     // 2. Comprehensive Filtering Logic
     const filteredEvents = EVENTS.filter((event) => {
-        const matchesCategory = activeCategory === 'All events' || event.category === activeCategory;
+        // UPDATED LOGIC: If 'All events' is active, return true for everyone.
+        // Otherwise, check if the event's category matches the active state.
+        const matchesCategory =
+            activeCategory === 'All events' ||
+            event.category === activeCategory;
+
         const matchesSearch =
             event.title.toLowerCase().includes(search.toLowerCase()) ||
             event.club.toLowerCase().includes(search.toLowerCase());
@@ -179,7 +184,7 @@ export default function BrowsePage() {
     });
 
     return (
-        <main className="min-h-screen bg-white pb-20">
+        <main className="min-h-screen bg-white pb-20 rounded-3xl">
             <DiscoveryHeader />
 
             {/* Passing states as props resolves the "Unused variable" warnings */}
@@ -206,24 +211,20 @@ export default function BrowsePage() {
             />
 
             <div className="max-w-7xl mx-auto px-6">
-                <motion.div
-                    layout
-                    className={
-                        viewMode === 'grid'
-                            ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-                            : "flex flex-col gap-4"
-                    }
-                >
-                    <AnimatePresence mode="popLayout">
-                        {filteredEvents.map((event) => (
-                            <EventCard
-                                key={event.id}
-                                event={event}
-                                viewMode={viewMode}
-                            />
-                        ))}
-                    </AnimatePresence>
-                </motion.div>
+                <div className="max-w-7xl mx-auto">
+                    <motion.div
+                        layout
+                        className={viewMode === 'grid'
+                            ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-6"
+                            : "flex flex-col gap-4 px-6"}
+                    >
+                        <AnimatePresence mode="popLayout">
+                            {filteredEvents.map((event) => (
+                                <EventCard key={event.id} event={event} viewMode={viewMode} />
+                            ))}
+                        </AnimatePresence>
+                    </motion.div>
+                </div>
 
                 {filteredEvents.length === 0 && (
                     <div className="py-20 text-center border-2 border-dashed border-zinc-100 rounded-4xl">
