@@ -18,7 +18,7 @@ type Category =
     | 'Study'
     | 'Club'
     | 'Lecture'
-    | 'Hiring'
+    | 'Volunteer'
     | 'Networking'
     | 'Workshop'
     | 'Pitch'
@@ -50,7 +50,7 @@ const EVENTS: Event[] = [
     // --- Original 9 Events ---
     {
         id: '1', title: 'Career Fair 2026', date: 'Today', time: '10:00 AM',
-        location: 'Main Hall', club: 'CS Department', category: 'Hiring',
+        location: 'Main Hall', club: 'CS Department', category: 'Volunteer',
         status: 'registered', attendees: 320,
         format: 'In person', dateLabel: 'Today', isOnline: false
     },

@@ -3,23 +3,22 @@ import { motion } from 'framer-motion';
 import { AnimatePresence} from "framer-motion";
 import { useRef, useState, useEffect } from 'react';
 
-
 const CATEGORIES = [
-    { name: 'All events', icon: 'grid_view' },
-    { name: 'Study', icon: 'auto_stories' },
-    { name: 'Club', icon: 'groups' },
-    { name: 'Lecture', icon: 'record_voice_over' },
-    { name: 'Hiring', icon: 'badge' },
-    { name: 'Networking', icon: 'hub' },
-    { name: 'Workshop', icon: 'handyman' },
-    { name: 'Pitch', icon: 'rocket_launch' },
-    { name: 'Panel', icon: 'co_present' },
-    { name: 'Social', icon: 'local_pizza' },
-    { name: 'Sports', icon: 'fitness_center' },
-    { name: 'Games', icon: 'sports_esports' },
-    { name: 'Wellness', icon: 'self_improvement' },
-    { name: 'Gallery', icon: 'palette' },
-    { name: 'Campus', icon: 'school' },
+    { name: 'All events', icon: 'grid_view', color: '#00F5D4' }, // Teal
+    { name: 'Study', icon: 'auto_stories', color: '#3B82F6' },    // Blue
+    { name: 'Club', icon: 'groups', color: '#8B5CF6' },          // Purple
+    { name: 'Lecture', icon: 'record_voice_over', color: '#F43F5E' }, // Rose
+    { name: 'Volunteer', icon: 'badge', color: '#F59E0B' },         // Amber
+    { name: 'Networking', icon: 'hub', color: '#10B981' },       // Emerald
+    { name: 'Workshop', icon: 'handyman', color: '#EC4899' },    // Pink
+    { name: 'Pitch', icon: 'rocket_launch', color: '#06B6D4' },  // Cyan
+    { name: 'Panel', icon: 'co_present', color: '#6366F1' },     // Indigo
+    { name: 'Social', icon: 'local_pizza', color: '#F97316' },   // Orange
+    { name: 'Sports', icon: 'fitness_center', color: '#84CC16' }, // Lime
+    { name: 'Games', icon: 'sports_esports', color: '#A855F7' }, // Violet
+    { name: 'Wellness', icon: 'self_improvement', color: '#14B8A6' }, // Teal-Light
+    { name: 'Gallery', icon: 'palette', color: '#EF4444' },      // Red
+    { name: 'Campus', icon: 'school', color: '#475569' },        // Slate
 ] as const;
 
 export default function CategoryBar({ active, onChange }: { active: string, onChange: (val: any) => void }) {
@@ -91,14 +90,14 @@ export default function CategoryBar({ active, onChange }: { active: string, onCh
                                 style={{
                                     fontSize: '20px',
                                     background: active === cat.name
-                                        ? 'linear-gradient(135deg, #00F5D4 0%, #00BBF9 100%)'
+                                        ? `linear-gradient(135deg, ${cat.color} 0%, #000000 150%)`
                                         : 'none',
                                     WebkitBackgroundClip: active === cat.name ? 'text' : 'unset',
                                     WebkitTextFillColor: active === cat.name ? 'transparent' : 'unset',
                                     color: active === cat.name ? 'transparent' : '#7e7e86',
                                     fontWeight: active === cat.name ? '600' : '400',
                                     opacity: active === cat.name ? 1 : 0.4,
-                                    filter: active === cat.name ? 'drop-shadow(0 0 8px rgba(0, 245, 212, 0.4))' : 'none'
+                                    filter: active === cat.name ? `drop-shadow(0 0 8px ${cat.color}66)` : 'none'
                                 }}
                             >
                                 {cat.icon}
