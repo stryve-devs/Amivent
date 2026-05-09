@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 
 // Modular Component Imports
 import DiscoveryHeader from '@/components/events/DiscoveryHeader'
-import FilterControls from '@/components/events/FilterControls'
+import FilterBar from '@/components/events/FilterBar'
 import CategoryBar from '@/components/events/CategoryBar'
 import ViewModeToggle from '@/components/events/ViewModeToggle'
 import EventCard from '@/components/events/EventCard'
@@ -157,28 +157,27 @@ const EVENTS: Event[] = [
 ];
 
 export default function BrowsePage() {
-    // 1. All filter states must be INSIDE the component function
+
     const [activeCategory, setActiveCategory] = useState<Category>('All events');
     const [viewMode, setViewMode] = useState<ViewMode>('grid');
     const [search, setSearch] = useState('');
     const [dateFilter, setDateFilter] = useState('Any day');
-    const [typeFilter, setTypeFilter] = useState('Any type');
+    const [typeFilter, setTypeFilter] = useState('Any mode'); //Changed from 'Any type'
     const [distanceFilter, setDistanceFilter] = useState(30);
 
     // 2. Comprehensive Filtering Logic
     const filteredEvents = EVENTS.filter((event) => {
-        // UPDATED LOGIC: If 'All events' is active, return true for everyone.
-        // Otherwise, check if the event's category matches the active state.
-        const matchesCategory =
-            activeCategory === 'All events' ||
-            event.category === activeCategory;
+        const matchesCategory = activeCategory === 'All events' || event.category === activeCategory;
 
-        const matchesSearch =
-            event.title.toLowerCase().includes(search.toLowerCase()) ||
+        const matchesSearch = event.title.toLowerCase().includes(search.toLowerCase()) ||
             event.club.toLowerCase().includes(search.toLowerCase());
 
-        const matchesType = typeFilter === 'Any type' || event.format === typeFilter;
+        // 🚨 THE FIX: Change 'Any type' to 'Any mode' here to match the reset state
+        const matchesType = typeFilter === 'Any mode' || event.format === typeFilter;
+
         const matchesDate = dateFilter === 'Any day' || event.dateLabel === dateFilter;
+
+        // (Note: If you plan to actually filter by distance, you'd add matchesDistance here too!)
 
         return matchesCategory && matchesSearch && matchesType && matchesDate;
     });
@@ -188,7 +187,7 @@ export default function BrowsePage() {
             <DiscoveryHeader />
 
             {/* Passing states as props resolves the "Unused variable" warnings */}
-            <FilterControls
+            <FilterBar
                 search={search}
                 setSearch={setSearch}
                 dateFilter={dateFilter}
